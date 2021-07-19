@@ -1,39 +1,23 @@
-#include <sqlite3.h>
-
-#include <QGuiApplication>
-#include <QQmlApplicationEngine>
-#include <QQuickItem>
-#include <QQuickWindow>
+#include <QApplication>
+#include <QMainWindow>
+#include <array>
+#include <iostream>
 
 int main(int argc, char *argv[]) {
-    QGuiApplication app(argc, argv);
-    qDebug() << "Hello world";
-    QQmlApplicationEngine engine;
-    const QUrl url(QStringLiteral("qrc:/main.qml"));
-    QObject::connect(
-        &engine, &QQmlApplicationEngine::objectCreated,
-        &app, [url](QObject *obj, const QUrl &objUrl) {
-            if (!obj && url == objUrl)
-                QCoreApplication::exit(-1);
-        },
-        Qt::QueuedConnection);
-    engine.load(url);
+    QApplication app(argc, argv);
 
-    // --- Test SQLite3 (Copy DLLs)
-    sqlite3 *db;
-    char *zErrMsg = 0;
-    int rc;
+    QCoreApplication::setOrganizationName("upupming");
+    app.setApplicationName("vscode-qt-vcpkg-template");
+    app.setApplicationVersion(QT_VERSION_STR);
 
-    rc = sqlite3_open("test.db", &db);
+#if _DEBUG
+    std::cout << "Debug mode" << std::endl;
+#else
+    std::cout << "Release mode" << std::endl;
+#endif
 
-    if (rc) {
-        fprintf(stderr, "Can't open database: %s\n", sqlite3_errmsg(db));
-        return (0);
-    } else {
-        fprintf(stderr, "Opened database successfully\n");
-    }
-    sqlite3_close(db);
-    // system("pause");
+    QMainWindow mainWindow;
+    mainWindow.show();
 
     return app.exec();
 }

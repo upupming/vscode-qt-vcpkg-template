@@ -12,19 +12,15 @@ else()
     set(CMAKE_TOOLCHAIN_FILE "./vcpkg/scripts/buildsystems/vcpkg.cmake" CACHE STRING "Vcpkg toolchain file")
 endif()
 
-set(PROJECT "vscode-qt-qml-vcpkg-template")
+set(PROJECT "vscode-qt-vcpkg-template")
 project(${PROJECT} LANGUAGES CXX)
 
-list(APPEND CMAKE_PREFIX_PATH "C:/Qt/5.15.2/msvc2019_64")
-message(STATUS "CMAKE_PREFIX_PATH: ${CMAKE_PREFIX_PATH}")
-find_package(QT NAMES Qt6 Qt5 COMPONENTS Core Quick REQUIRED)
-find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Quick REQUIRED)
-find_package(Qt${QT_VERSION_MAJOR}QuickCompiler)
+find_package(QT NAMES Qt6 Qt5 COMPONENTS Core REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Gui Widgets Concurrent REQUIRED)
 message(STATUS "QT_FOUND ${QT_FOUND}")
 message(STATUS "QT_CONFIG ${QT_CONFIG}")
 message(STATUS "QT_CONSIDERED_CONFIGS ${QT_CONSIDERED_CONFIGS}")
 message(STATUS "QT_CONSIDERED_VERSIONS ${QT_CONSIDERED_VERSIONS}")
-message(STATUS "Qt5Qml_INCLUDE_DIRS ${Qt5Qml_INCLUDE_DIRS}")
 message(STATUS "QT_VERSION_MAJOR ${QT_VERSION_MAJOR}")
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -79,14 +75,15 @@ else()
     endif()
 endif()
 
-target_compile_definitions(${PROJECT}
-  PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
-target_link_libraries(${PROJECT}
-  PRIVATE Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Quick)
+target_link_libraries(
+    ${PROJECT} PRIVATE
+    Qt${QT_VERSION_MAJOR}::Core
+    Qt${QT_VERSION_MAJOR}::Gui
+    Qt${QT_VERSION_MAJOR}::Widgets
+    Qt${QT_VERSION_MAJOR}::Concurrent)
 
-
-find_package(unofficial-sqlite3 CONFIG REQUIRED)
-target_link_libraries(${PROJECT} PRIVATE unofficial::sqlite3::sqlite3)
+find_package(OpenMP REQUIRED)
+target_link_libraries(${PROJECT} PRIVATE OpenMP::OpenMP_CXX)
 
 target_include_directories(${PROJECT}
     PRIVATE
