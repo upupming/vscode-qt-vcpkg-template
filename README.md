@@ -2,9 +2,9 @@
 
 [![Windows Build](https://github.com/upupming/vscode-qt-vcpkg-template/actions/workflows/windows.yml/badge.svg)](https://github.com/upupming/vscode-qt-vcpkg-template/actions/workflows/windows.yml)
 
-> This is a template for Qt Widget. If you are looking for a QML template, please see [https://github.com/upupming/vscode-qt-qml-vcpkg-template](https://github.com/upupming/vscode-qt-qml-vcpkg-template).
-
 ## Template usage
+
+> This is a template for Qt Widget. If you are looking for a QML template, please see [https://github.com/upupming/vscode-qt-qml-vcpkg-template](https://github.com/upupming/vscode-qt-qml-vcpkg-template).
 
 We use the manifest mode `vcpkg.json` to declare dependencies, just like `package.json` for npm. Clone the repo with vcpkg submodules using:
 
