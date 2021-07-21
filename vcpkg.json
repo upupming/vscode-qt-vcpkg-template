@@ -3,7 +3,7 @@
     "name": "vscode-qt-vcpkg-template",
     "version-string": "0.0.1",
     "license": "MIT",
-    "builtin-baseline": "698c44440375cce33b6f671c87ad1705d943d327",
+    "builtin-baseline": "3c82e1931ea375fd48fcfb42af09990798ee6489",
     "dependencies": [
         {
             "name": "qt5",
