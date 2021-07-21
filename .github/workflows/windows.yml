@@ -73,7 +73,7 @@ jobs:
       - name: Setup cmake
         uses: jwlawson/actions-setup-cmake@v1.9
         with:
-          cmake-version: "3.20"
+          cmake-version: "3.21"
 
       # =========================================================================================================
       - name: Install MSVC compiler
